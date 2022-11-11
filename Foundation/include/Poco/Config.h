@@ -152,7 +152,7 @@
 // For explanation, see:
 // https://github.com/pocoproject/poco/wiki/Move-Semantics-in-POCO
 #ifndef POCO_NEW_STATE_ON_MOVE
-// #define POCO_NEW_STATE_ON_MOVE 1
+    #define POCO_NEW_STATE_ON_MOVE 1
 #endif
 
 
@@ -177,7 +177,7 @@
 // These options are Windows only.
 //
 // To disable the use of Poco-provided OpenSSL binaries,
-// define POCO_EXTERNAL_OPENSSL.
+#define POCO_EXTERNAL_OPENSSL 2
 //
 // Possible values:
 //   POCO_EXTERNAL_OPENSSL_SLPRO:
@@ -193,7 +193,6 @@
 #if !defined(POCO_EXTERNAL_OPENSSL) && defined(POCO_EXTERNAL_OPENSSL_SLPRO)
 	#define POCO_EXTERNAL_OPENSSL POCO_EXTERNAL_OPENSSL_SLPRO
 #endif
-
 
 // Define to prevent changing the suffix for shared libraries
 // to "d.so", "d.dll", etc. for _DEBUG builds in Poco::SharedLibrary.

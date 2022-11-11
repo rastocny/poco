@@ -32,6 +32,8 @@ rem VS_VERSION is required argument. Default is build all.
 
 set POCO_BASE=%CD%
 set PATH=%POCO_BASE%\bin64;%POCO_BASE%\bin;%PATH%
+set LIB=c:\Program Files\OpenSSL-Win64\lib;c:\Program Files\MySQL\MySQL Server 8.0\lib;c:\Program Files\PostgreSQL\15\lib;%LIB%
+set INCLUDE=c:\Program Files\OpenSSL-Win64\include;c:\Program Files\MySQL\MySQL Server 8.0\include;c:\Program Files\PostgreSQL\15\include;%INCLUDE%
 
 rem VS_VERSION {140 | 150 | 160 | 170}
 if "%1"=="" goto usage
@@ -113,28 +115,28 @@ if "%TESTS%"=="" (set TESTS=notests)
 if not defined VCINSTALLDIR (
   if %VS_VERSION%==vs140 (
     if %PLATFORM%==x64 (
-      call "%VS140COMNTOOLS%%VS_VARSALL%" x86_amd64 8.1
+      call "%VS140COMNTOOLS%%VS_VARSALL%" x86_amd64 10.0.19041.0
     ) else (
       call "%VS140COMNTOOLS%%VS_VARSALL%" x86 8.1
     )
   ) else (
     if %VS_VERSION%==vs150 (
       if %PLATFORM%==x64 (
-        call "%VS150COMNTOOLS%%VS_VARSALL%" x86_amd64 8.1
+        call "%VS150COMNTOOLS%%VS_VARSALL%" x86_amd64 10.0.19041.0
       ) else (
         call "%VS150COMNTOOLS%%VS_VARSALL%" x86 8.1
       )
     ) else (
       if %VS_VERSION%==vs160 (
         if %PLATFORM%==x64 (
-          call "%VS160COMNTOOLS%%VS_VARSALL%" x86_amd64 8.1
+          call "%VS160COMNTOOLS%%VS_VARSALL%" x86_amd64 10.0.19041.0
         ) else (
           call "%VS160COMNTOOLS%%VS_VARSALL%" x86 8.1
         )
       ) else (
         if %VS_VERSION%==vs170 (
           if %PLATFORM%==x64 (
-            call "%VS170COMNTOOLS%%VS_VARSALL%" x86_amd64 8.1
+            call "%VS170COMNTOOLS%%VS_VARSALL%" x86_amd64 10.0.19041.0
           ) else (
             if %PLATFORM%==arm64 (
               call "%VS170COMNTOOLS%%VS_VARSALL%" x86_arm64

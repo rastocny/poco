@@ -11,6 +11,7 @@
 #include "HeaderGenerator.h"
 #include "Poco/Exception.h"
 
+#include <algorithm>
 
 using namespace std::string_literals;
 
@@ -36,7 +37,7 @@ void HeaderGenerator::generate() const
 		<< "#pragma once\n"
 		<< "#ifndef " << guard << "\n"
 		<< "#define " << guard << "\n"
-		<< "\n\n";
+		<< "\n";
 	stream() << "#include <Poco/ActiveRecord/ActiveRecord.h>\n";
 	if (!_class.dllExport.empty())
 		writeInclude(_class.nameSpace, "Config"s);
@@ -67,7 +68,8 @@ std::string HeaderGenerator::includeGuard(const std::string& nameSpace, const st
 		guard += '_';
 	}
 	guard += name;
-	guard += "_INCLUDED";
+	guard += "_H";
+	std::transform(guard.begin(), guard.end(), guard.begin(), [](unsigned char c) { return std::toupper(c); });
 	return guard;
 }
 
