@@ -25,6 +25,7 @@ public:
 	~DateTimeParserTest();
 
 	void testISO8601();
+	void testISO8601Sql();
 	void testISO8601Frac();
 	void testRFC822();
 	void testRFC1123();

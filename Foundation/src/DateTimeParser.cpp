@@ -229,7 +229,7 @@ bool DateTimeParser::tryParse(const std::string& str, DateTime& dateTime, int& t
 	else if (Ascii::isDigit(str[0]))
 	{
 		if (str.find(' ') != std::string::npos || str.length() == 10)
-			return tryParse(DateTimeFormat::SORTABLE_FORMAT, str, dateTime, timeZoneDifferential);
+			return tryParse(DateTimeFormat::ISO8601_SQL_FORMAT, str, dateTime, timeZoneDifferential);
 		else if (str.find('.') != std::string::npos || str.find(',') != std::string::npos)
 			return tryParse(DateTimeFormat::ISO8601_FRAC_FORMAT, str, dateTime, timeZoneDifferential);
 		else

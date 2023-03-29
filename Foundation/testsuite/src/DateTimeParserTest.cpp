@@ -84,6 +84,55 @@ void DateTimeParserTest::testISO8601()
 	assertTrue (tzd == 0);
 }
 
+void DateTimeParserTest::testISO8601Sql()
+{
+    int tzd;
+    DateTime dt = DateTimeParser::parse(DateTimeFormat::ISO8601_SQL_FORMAT, "2005-01-08 12:30:00Z", tzd);
+    assertTrue(dt.year() == 2005);
+    assertTrue(dt.month() == 1);
+    assertTrue(dt.day() == 8);
+    assertTrue(dt.hour() == 12);
+    assertTrue(dt.minute() == 30);
+    assertTrue(dt.second() == 0);
+    assertTrue(tzd == 0);
+
+    dt = DateTimeParser::parse(DateTimeFormat::ISO8601_SQL_FORMAT, "2005-01-08 12:30:00+01:00", tzd);
+    assertTrue(dt.year() == 2005);
+    assertTrue(dt.month() == 1);
+    assertTrue(dt.day() == 8);
+    assertTrue(dt.hour() == 12);
+    assertTrue(dt.minute() == 30);
+    assertTrue(dt.second() == 0);
+    assertTrue(tzd == 3600);
+
+    dt = DateTimeParser::parse(DateTimeFormat::ISO8601_SQL_FORMAT, "2005-01-08 12:30:00-01:00", tzd);
+    assertTrue(dt.year() == 2005);
+    assertTrue(dt.month() == 1);
+    assertTrue(dt.day() == 8);
+    assertTrue(dt.hour() == 12);
+    assertTrue(dt.minute() == 30);
+    assertTrue(dt.second() == 0);
+    assertTrue(tzd == -3600);
+
+    dt = DateTimeParser::parse(DateTimeFormat::ISO8601_SQL_FORMAT, "2005-01-08 12:30:00", tzd);
+    assertTrue(dt.year() == 2005);
+    assertTrue(dt.month() == 1);
+    assertTrue(dt.day() == 8);
+    assertTrue(dt.hour() == 12);
+    assertTrue(dt.minute() == 30);
+    assertTrue(dt.second() == 0);
+    assertTrue(tzd == 0);
+
+    dt = DateTimeParser::parse(DateTimeFormat::ISO8601_SQL_FORMAT, "2005-01-08", tzd);
+    assertTrue(dt.year() == 2005);
+    assertTrue(dt.month() == 1);
+    assertTrue(dt.day() == 8);
+    assertTrue(dt.hour() == 0);
+    assertTrue(dt.minute() == 0);
+    assertTrue(dt.second() == 0);
+    assertTrue(tzd == 0);
+}
+
 
 void DateTimeParserTest::testISO8601Frac()
 {
@@ -567,6 +616,33 @@ void DateTimeParserTest::testGuess()
 	assertTrue (dt.second() == 0);
 	assertTrue (tzd == 3600);
 
+    dt = DateTimeParser::parse("2005-01-08 12:30:00Z", tzd);
+    assertTrue(dt.year() == 2005);
+    assertTrue(dt.month() == 1);
+    assertTrue(dt.day() == 8);
+    assertTrue(dt.hour() == 12);
+    assertTrue(dt.minute() == 30);
+    assertTrue(dt.second() == 0);
+    assertTrue(tzd == 0);
+
+    dt = DateTimeParser::parse("20050108 123000Z", tzd);
+    assertTrue(dt.year() == 2005);
+    assertTrue(dt.month() == 1);
+    assertTrue(dt.day() == 8);
+    assertTrue(dt.hour() == 12);
+    assertTrue(dt.minute() == 30);
+    assertTrue(dt.second() == 0);
+    assertTrue(tzd == 0);
+
+    dt = DateTimeParser::parse("2005-01-08 12:30:00+01:00", tzd);
+    assertTrue(dt.year() == 2005);
+    assertTrue(dt.month() == 1);
+    assertTrue(dt.day() == 8);
+    assertTrue(dt.hour() == 12);
+    assertTrue(dt.minute() == 30);
+    assertTrue(dt.second() == 0);
+    assertTrue(tzd == 3600);
+
 	dt = DateTimeParser::parse("2005-01-08T12:30:00.123456Z", tzd);
 	assertTrue (dt.year() == 2005);
 	assertTrue (dt.month() == 1);
@@ -773,6 +849,7 @@ CppUnit::Test* DateTimeParserTest::suite()
 	CppUnit::TestSuite* pSuite = new CppUnit::TestSuite("DateTimeParserTest");
 
 	CppUnit_addTest(pSuite, DateTimeParserTest, testISO8601);
+	CppUnit_addTest(pSuite, DateTimeParserTest, testISO8601Sql);
 	CppUnit_addTest(pSuite, DateTimeParserTest, testISO8601Frac);
 	CppUnit_addTest(pSuite, DateTimeParserTest, testRFC822);
 	CppUnit_addTest(pSuite, DateTimeParserTest, testRFC1123);

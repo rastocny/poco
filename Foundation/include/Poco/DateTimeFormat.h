@@ -36,6 +36,13 @@ public:
 		/// Examples:
 		///   2005-01-01T12:00:00+01:00
 		///   2005-01-01T11:00:00Z
+    
+	static const std::string ISO8601_SQL_FORMAT;
+		/// The date/time format defined in the ISO 8601 standard for SQL.
+		///
+		/// Examples:
+		///   2005-01-01 12:00:00+01:00
+		///   2005-01-01 11:00:00Z
 
 	static const std::string ISO8601_FRAC_FORMAT;
 		/// The date/time format defined in the ISO 8601 standard,
