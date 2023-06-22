@@ -202,9 +202,14 @@ bool Extractor::extract(std::size_t pos, DateTime& val)
 	if (isNull(pos)) return false;
 	std::string dt;
 	extract(pos, dt);
-	int tzd;
-	DateTimeParser::parse(dt, val, tzd);
-	return true;
+	int tzd = -1;
+    DateTime dateTime;
+    if (!DateTimeParser::tryParse(dt, dateTime, tzd)) {
+        return false;
+    }
+    dateTime.makeUTC(tzd);
+    val = dateTime;
+    return true;
 }
 
 

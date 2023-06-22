@@ -197,6 +197,7 @@
     <OutDir>..\bin64\</OutDir>
     <IntDir>obj64\Net\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>Poco$(ProjectName)64</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug_static_mt|x64'">
     <OutDir>..\lib64\</OutDir>
