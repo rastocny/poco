@@ -114,6 +114,16 @@ void DateTimeParserTest::testISO8601Sql()
     assertTrue(dt.second() == 0);
     assertTrue(tzd == -3600);
 
+    dt = DateTimeParser::parse(DateTimeFormat::ISO8601_SQL_FORMAT, "2005-01-08 12:30:00.123-01:00", tzd);
+    assertTrue(dt.year() == 2005);
+    assertTrue(dt.month() == 1);
+    assertTrue(dt.day() == 8);
+    assertTrue(dt.hour() == 12);
+    assertTrue(dt.minute() == 30);
+    assertTrue(dt.second() == 0);
+	assertTrue(dt.millisecond() == 123);
+    assertTrue(tzd == -3600);
+
     dt = DateTimeParser::parse(DateTimeFormat::ISO8601_SQL_FORMAT, "2005-01-08 12:30:00", tzd);
     assertTrue(dt.year() == 2005);
     assertTrue(dt.month() == 1);

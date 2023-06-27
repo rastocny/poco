@@ -43,6 +43,8 @@ public:
 		/// Examples:
 		///   2005-01-01 12:00:00+01:00
 		///   2005-01-01 11:00:00Z
+        ///   2005-01-01 12:00:00.000+01:00
+        ///   2005-01-01 11:00:00.000Z
 
 	static const std::string ISO8601_FRAC_FORMAT;
 		/// The date/time format defined in the ISO 8601 standard,
