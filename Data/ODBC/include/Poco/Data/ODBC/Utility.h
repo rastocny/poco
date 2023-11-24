@@ -162,6 +162,10 @@ public:
 		for (; it != end; ++it, ++tIt) dateTimeSync(*tIt, *it);
 	}
 
+	static int cDataType(const std::type_info &type);
+
+	static int sqlDataType(int cDataType, const std::type_info &type);
+
 private:
 	static const TypeInfo _dataTypes;
 		/// C <==> SQL data type mapping

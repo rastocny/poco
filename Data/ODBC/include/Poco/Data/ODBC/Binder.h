@@ -327,16 +327,16 @@ public:
 	void bind(std::size_t pos, const UUID& val, Direction dir);
 		/// Binds a UUID.
 
-	void bind(std::size_t pos, const NullData& val, Direction dir);
+	void bind(std::size_t pos, const NullData& val, const std::type_info &type, Direction dir);
 		/// Binds a null. In-bound only.
 
-	void bind(std::size_t pos, const std::vector<NullData>& val, Direction dir);
+	void bind(std::size_t pos, const std::vector<NullData>& val, const std::type_info &type, Direction dir);
 		/// Binds a null vector.
 
-	void bind(std::size_t pos, const std::deque<NullData>& val, Direction dir);
+	void bind(std::size_t pos, const std::deque<NullData>& val, const std::type_info &type, Direction dir);
 		/// Binds a null deque.
 
-	void bind(std::size_t pos, const std::list<NullData>& val, Direction dir);
+	void bind(std::size_t pos, const std::list<NullData>& val, const std::type_info &type, Direction dir);
 		/// Binds a null list.
 
 	void setDataBinding(ParameterBinding binding);
@@ -909,7 +909,7 @@ private:
 	}
 
 	template<typename C>
-	void bindImplNullContainer(std::size_t pos, const C& val, Direction dir)
+	void bindImplNullContainer(std::size_t pos, const C& val, const std::type_info &type, Direction dir)
 	{
 		if (isOutBound(dir) || !isInBound(dir))
 			throw NotImplementedException("Null container parameter type can only be inbound.");
@@ -930,15 +930,18 @@ private:
 			_vecLengthIndicator[pos] = new LengthVec(length ? length : 1);
 		}
 
+        const auto cDataType = Utility::cDataType(type);
+        const auto sqlDataType = Utility::sqlDataType(cDataType, type);
+
 		SQLINTEGER colSize = 0;
 		SQLSMALLINT decDigits = 0;
-		getColSizeAndPrecision(pos, SQL_C_STINYINT, colSize, decDigits);
+		getColSizeAndPrecision(pos, cDataType, colSize, decDigits);
 
 		if (Utility::isError(SQLBindParameter(_rStmt,
 			(SQLUSMALLINT) pos + 1,
 			SQL_PARAM_INPUT,
-			SQL_C_STINYINT,
-			Utility::sqlDataType(SQL_C_STINYINT),
+			cDataType,
+			sqlDataType,
 			colSize,
 			decDigits,
 			0,
@@ -1498,21 +1501,21 @@ inline void Binder::bind(std::size_t pos, const std::list<DateTime>& val, Direct
 }
 
 
-inline void Binder::bind(std::size_t pos, const std::vector<NullData>& val, Direction dir)
+inline void Binder::bind(std::size_t pos, const std::vector<NullData>& val, const std::type_info &type, Direction dir)
 {
-	bindImplNullContainer(pos, val, dir);
+	bindImplNullContainer(pos, val, type, dir);
 }
 
 
-inline void Binder::bind(std::size_t pos, const std::deque<NullData>& val, Direction dir)
+inline void Binder::bind(std::size_t pos, const std::deque<NullData>& val, const std::type_info &type, Direction dir)
 {
-	bindImplNullContainer(pos, val, dir);
+	bindImplNullContainer(pos, val, type, dir);
 }
 
 
-inline void Binder::bind(std::size_t pos, const std::list<NullData>& val, Direction dir)
+inline void Binder::bind(std::size_t pos, const std::list<NullData>& val, const std::type_info &type, Direction dir)
 {
-	bindImplNullContainer(pos, val, dir);
+	bindImplNullContainer(pos, val, type, dir);
 }
 
 

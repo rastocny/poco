@@ -204,9 +204,6 @@ void ODBCStatementImpl::doBind()
 		Bindings::iterator it    = binds.begin();
 		Bindings::iterator itEnd = binds.end();
 
-		if (it != itEnd && 0 == _affectedRowCount)
-			_affectedRowCount = static_cast<std::size_t>((*it)->numOfRowsHandled());
-
 		for (std::size_t pos = 0; it != itEnd && (*it)->canBind(); ++it)
 		{
 			(*it)->bind(pos);
@@ -350,6 +347,10 @@ std::size_t ODBCStatementImpl::next()
 			pos += (*it)->numOfColumnsHandled();
 		}
 		_stepCalled = false;
+
+		if (extracts.begin() != extracts.end() && 0 == _affectedRowCount) {
+			_affectedRowCount += static_cast<int>((*extracts.begin())->numOfRowsHandled());
+		}
 	}
 	else
 	{

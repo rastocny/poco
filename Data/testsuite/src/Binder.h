@@ -103,7 +103,7 @@ public:
 	void bind(std::size_t pos, const UUID& val, Direction dir);
 		/// Binds a UUID.
 
-	void bind(std::size_t pos, const NullData& val, Direction dir);
+	void bind(std::size_t pos, const NullData& val, const std::type_info &type, Direction dir);
 		/// Binds a NullData.
 
 	void reset();

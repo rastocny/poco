@@ -145,7 +145,7 @@ void Binder::bind(std::size_t pos, const UUID& val, Direction dir)
 }
 
 
-void Binder::bind(std::size_t pos, const NullData& val, Direction dir)
+void Binder::bind(std::size_t pos, const NullData& val, const std::type_info &type, Direction dir)
 {
 }
 

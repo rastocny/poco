@@ -332,16 +332,16 @@ public:
 	virtual void bind(std::size_t pos, const std::list<UUID>& val, Direction dir = PD_IN);
 		/// Binds a UUID list.
 
-	virtual void bind(std::size_t pos, const NullData& val, Direction dir = PD_IN) = 0;
+	virtual void bind(std::size_t pos, const NullData& val, const std::type_info &type, Direction dir = PD_IN) = 0;
 		/// Binds a null.
 
-	virtual void bind(std::size_t pos, const std::vector<NullData>& val, Direction dir = PD_IN);
+	virtual void bind(std::size_t pos, const std::vector<NullData>& val, const std::type_info &type, Direction dir = PD_IN);
 		/// Binds a null vector.
 
-	virtual void bind(std::size_t pos, const std::deque<NullData>& val, Direction dir = PD_IN);
+	virtual void bind(std::size_t pos, const std::deque<NullData>& val, const std::type_info &type, Direction dir = PD_IN);
 		/// Binds a null deque.
 
-	virtual void bind(std::size_t pos, const std::list<NullData>& val, Direction dir = PD_IN);
+	virtual void bind(std::size_t pos, const std::list<NullData>& val, const std::type_info &type, Direction dir = PD_IN);
 		/// Binds a null list.
 
 	void bind(std::size_t pos, const Any& val, Direction dir = PD_IN);

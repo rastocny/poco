@@ -265,6 +265,13 @@ IDType ActiveRecord<IDType>::lastInsertID(Poco::Data::Session& session, const st
 			into(id),
 			now;
 	}
+	else if (session.connector() == "ODBC") {
+		// TODO: Works only with MS SQL, when no row creation trigger is associated with CREATE statement
+		session
+			<< "SELECT @@IDENTITY AS ID",
+			into(id),
+			now;
+    }
 	else
 	{
 		throw Poco::NotImplementedException("lastInsertID not implemented for connector", session.connector());

@@ -259,7 +259,7 @@ public:
 		poco_assert_dbg (!pBinder.isNull());
 		if (obj.isNull())
 		{
-			pBinder->bind(pos++, Poco::Data::Keywords::null, dir);
+			pBinder->bind(pos++, Poco::Data::Keywords::null, typeid(T),  dir);
 		}
 		else
 		{

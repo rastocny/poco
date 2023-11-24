@@ -326,7 +326,6 @@ void Binder::bind(std::size_t pos, const Poco::DateTime& val, Direction dir)
 	}
 }
 
-
 void Binder::bind(std::size_t pos, const UUID& val, Direction dir)
 {
 	SQLINTEGER size = (SQLINTEGER) 16;
@@ -358,8 +357,7 @@ void Binder::bind(std::size_t pos, const UUID& val, Direction dir)
 	}
 }
 
-
-void Binder::bind(std::size_t pos, const NullData& val, Direction dir)
+void Binder::bind(std::size_t pos, const NullData& val, const std::type_info &type, Direction dir)
 {
 	if (isOutBound(dir) || !isInBound(dir))
 		throw NotImplementedException("NULL parameter type can only be inbound.");
@@ -371,15 +369,18 @@ void Binder::bind(std::size_t pos, const NullData& val, Direction dir)
 
 	_lengthIndicator.push_back(pLenIn);
 
+	const auto cDataType = Utility::cDataType(type);
+	const auto sqlDataType = Utility::sqlDataType(cDataType, type);
+
 	SQLINTEGER colSize = 0;
 	SQLSMALLINT decDigits = 0;
-	getColSizeAndPrecision(pos, SQL_C_STINYINT, colSize, decDigits);
-
+	getColSizeAndPrecision(pos, cDataType, colSize, decDigits);
+	
 	if (Utility::isError(SQLBindParameter(_rStmt,
 		(SQLUSMALLINT) pos + 1,
 		SQL_PARAM_INPUT,
-		SQL_C_STINYINT,
-		Utility::sqlDataType(SQL_C_STINYINT),
+		cDataType,
+		sqlDataType,
 		colSize,
 		decDigits,
 		0,
@@ -523,7 +524,7 @@ void Binder::getColSizeAndPrecision(std::size_t pos,
 			throw LengthExceededException(Poco::format("Error binding column %z size=%z, max size=%ld)",
 					pos, actualSize, static_cast<long>(colSize)));
 		}
-		found = _pTypeInfo->tryGetInfo(cDataType, "MINIMUM_SCALE", tmp);
+		found = _pTypeInfo->tryGetInfo(cDataType, "MAXIMUM_SCALE", tmp);
 		if (found)
 		{
 			decDigits = tmp;

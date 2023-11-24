@@ -217,7 +217,7 @@ void Binder::bind(std::size_t pos, const UUID& val, Direction dir)
 }
 
 
-void Binder::bind(std::size_t pos, const NullData&, Direction dir)
+void Binder::bind(std::size_t pos, const NullData&, const std::type_info &type, Direction dir)
 {
 	poco_assert(dir == PD_IN);
 	realBind(pos, MYSQL_TYPE_NULL, 0, 0);
@@ -603,19 +603,19 @@ void Binder::bind(std::size_t pos, const std::list<Poco::Data::Time>& val, Direc
 }
 
 
-void Binder::bind(std::size_t pos, const std::vector<Poco::Data::NullData>& val, Direction dir)
+void Binder::bind(std::size_t pos, const std::vector<Poco::Data::NullData>& val, const std::type_info &type, Direction dir)
 {
 	throw NotImplementedException();
 }
 
 
-void Binder::bind(std::size_t pos, const std::deque<Poco::Data::NullData>& val, Direction dir)
+void Binder::bind(std::size_t pos, const std::deque<Poco::Data::NullData>& val, const std::type_info &type, Direction dir)
 {
 	throw NotImplementedException();
 }
 
 
-void Binder::bind(std::size_t pos, const std::list<Poco::Data::NullData>& val, Direction dir)
+void Binder::bind(std::size_t pos, const std::list<Poco::Data::NullData>& val, const std::type_info &type, Direction dir)
 {
 	throw NotImplementedException();
 }
