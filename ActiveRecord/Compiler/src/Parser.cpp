@@ -199,7 +199,8 @@ std::string Parser::parseType(const std::string& type) const
 		{"time"s,      "Poco::Data::Time"s},
 		{"date"s,      "Poco::Data::Date"s},
 		{"uuid"s,      "Poco::UUID"s},
-		{"string"s,    "std::string"s}
+		{"string"s,    "std::string"s},
+		{"blob"s,      "Poco::Data::BLOB"s}
 	};
 
 	auto it = typeMap.find(type);
